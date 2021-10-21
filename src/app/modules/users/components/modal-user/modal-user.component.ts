@@ -5,6 +5,8 @@ import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/s
 import { User } from '../../models/user.class';
 import { UserService } from '../../services/user.service';
 
+import { UserValidator } from 'src/app/shared/validators';
+
 @Component({
   selector: 'app-modal-user',
   templateUrl: './modal-user.component.html',
@@ -28,7 +30,7 @@ export class ModalUserComponent implements OnInit {
     this.userForm = this.fb.group({
       id: [],
       email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")] ],
-      user: [null, Validators.required],
+      user: [null, [Validators.required, Validators.maxLength(20), UserValidator]],
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       active: [true, Validators.required],

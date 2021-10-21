@@ -8,20 +8,20 @@ import { ModalUserComponent } from '../modal-user/modal-user.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
-  @Input() title = ''
-
+  @Input() title = '';
 
   public userForm!: FormGroup;
 
-  constructor( private fb: FormBuilder, private userService: UserService, private dialog: MatDialog) { }
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-
-
     this.userForm = this.fb.group({
       email: [''],
       user: [''],
@@ -29,37 +29,26 @@ export class HeaderComponent implements OnInit {
       lastName: [''],
     });
 
-
-    this.userForm.valueChanges.subscribe( values => {
+    this.userForm.valueChanges.subscribe((values) => {
       this.userService.searchUser.emit(values);
-    })
+    });
   }
 
-  handleSearch(){
-
-
-    this.userForm.patchValue({email: '',
+  handleSearch() {
+    this.userForm.patchValue({
+      email: '',
       user: '',
       firstName: '',
       lastName: '',
-
-    })
-
-    console.log(this.userForm.value);
-
-   
-
-  }
-
-
-  createUser(){
-
-    let dialogRef = this.dialog.open(ModalUserComponent, {
-      width: '1050px',
-      height: '300px'
-      
     });
 
+    console.log(this.userForm.value);
   }
 
+  createUser() {
+    let dialogRef = this.dialog.open(ModalUserComponent, {
+      width: '1050px',
+      height: '350px',
+    });
+  }
 }
